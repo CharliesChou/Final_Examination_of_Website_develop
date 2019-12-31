@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.charles.idol.mapper.EssayMapper">
+		<insert id="addEssay" parameterType="com.charles.idol.pojo.Essay">
+			insert into essay values(#{essayid},#{title},#{type},#{from},#{time},#{img},#{content},#{editor})
+		</insert>
+		<select id="getEssayById" parameterType="String" resultType="com.charles.idol.pojo.Essay">
+			SELECT * FROM essay where essayId=#{essayId}
+		</select>
+		<select id="getEssayList" parameterType="List" resultType="com.charles.idol.pojo.Essay">
+			SELECT * FROM essay  LIMIT #{pageNo},#{pageSize}
+		</select>
+		<delete id="delEssayById" parameterType="String">
+			delete from essay where essayid=#{essayid}
+		</delete>
+		<update id="updateEssayContentById" parameterType="HashMap">
+			update essay set content=#{content} where essayid=#{essayid}
+		</update>
+		<select id="getEssayContentById" parameterType="String" resultType="com.charles.idol.pojo.Essay">
+			select * from essay where essayid=#{essayid}
+		</select>
+		<select id="getEssayByType" parameterType="HashMap" resultType="com.charles.idol.pojo.Essay">
+			select * from essay where type=#{type} LIMIT #{pageNo},#{pageSize}
+		</select>
+	</mapper>

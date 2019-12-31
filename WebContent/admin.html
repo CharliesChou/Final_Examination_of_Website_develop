@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>super-idol-admin</title>
+  <link rel="stylesheet" href="./layui/css/layui.css">
+  <link rel="stylesheet" href="./layui/css/modules/layer/default/layer.css" media="all">	
+  <script src="./layui/lay/modules/layer.js" charset="utf-8"></script>
+  <script type="text/javascript" src="./js/jquery-3.3.1.js"></script>
+  <script src="./js/admin_opEssay.js"></script>
+  <script src="./js/admin_opUser.js"></script>
+  <script src="./js/admin_opNotice.js"></script>
+  <script src="./js/admin_opMsg.js"></script>
+  <script src="./js/admin.js"></script>
+  <script src="./js/logout.js"></script>
+  <script src="./layui/layui.js"></script>
+</head>
+<body class="layui-layout-body" onload="loadAdminInfo()">
+<div class="layui-layout layui-layout-admin">
+  <div class="layui-header" style="background-color: #d42b24">
+    <div class="layui-logo"><p style="color: yellow"><i class="layui-icon layui-icon-console"> super-idol后台管理</i></p></div>
+    <!-- 头部区域（可配合layui已有的水平导航） -->
+    <ul class="layui-nav layui-layout-left">
+      <li class="layui-nav-item"><a href="index.html"><i class="layui-icon layui-icon-home" style="">回到主页</i></a></li>
+      <li class="layui-nav-item"><a href="javascript:addAdmin()"><i class="layui-icon layui-icon-auz" style="">注册管理员</i></a></li>
+      <li class="layui-nav-item">
+        <a href=""><i class="layui-icon layui-icon-refresh-3" style="">重启本页</i></a>
+      </li>
+    </ul>
+    <ul class="layui-nav layui-layout-right">
+      <li class="layui-nav-item">
+        <a href="javascript:;">
+          <img src="./imgs/default.jpg" class="layui-nav-img" id="admin_profile">
+          	<span id="admin_name">来者何人？</span>
+        </a>
+        <dl class="layui-nav-child">
+          <dd><a href="uinfo.html">基本资料</a></dd>
+          <dd><a href="javascript:updatePassoword()">密码更换</a></dd>
+        </dl>
+      </li>
+      <li class="layui-nav-item"><a href="javascript:logout()">退了</a></li>
+    </ul>
+  </div>
+  
+  <div class="layui-side layui-bg-black" style="background-color: #d42b24">
+    <div class="layui-side-scroll" style="background-color: #d42b24">
+      <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+      <ul class="layui-nav layui-nav-tree"  lay-filter="test" style="background-color: #d42b24">
+        <li class="layui-nav-item layui-nav-itemed">
+          <a class="" href="javascript:;"><i class="layui-icon layui-icon-file-b" style="">文章管理</i></a>
+          <dl class="layui-nav-child">
+            <dd><a href="javascript:addEssay();">发布文章</a></dd>
+            <dd><a href="javascript:checkEssay();">查看文章</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;"><i class="layui-icon layui-icon-group" style="">用户管理</i></a>
+          <dl class="layui-nav-child">
+            <dd><a href="javascript:opUser();">查改用户</a></dd>
+            <dd><a href="javascript:searchUser();">搜索用户</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;"><i class="layui-icon layui-icon-reply-fill" style="">评论管理</i></a>
+          <dl class="layui-nav-child">
+            <dd><a href="javascript:getAllMsg();">查改评论</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;"><i class="layui-icon layui-icon-chat" style="">公告管理</i></a>
+          <dl class="layui-nav-child">
+            <dd><a href="javascript:addNotice();">发布公告</a></dd>
+            <dd><a href="javascript:checkNotice();">查改公告</a></dd>
+          </dl>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="layui-body">
+    <div style="padding: 15px;">
+    <!-- 数据表格处理 -->
+    <table class="layui-hide" id="essay_list" hidden="true" lay-filter="essay_list"></table>
+	<script type="text/html" id="toolbarDemo">
+  <div class="layui-btn-container">
+    <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
+    <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
+    <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
+  </div>
+</script>
+ 
+<script type="text/html" id="essay_op">
+  <a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
+  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+<script type="text/html" id="user_op">
+ <a class="layui-btn layui-btn-xs" lay-event="edit">解禁</a>
+  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">禁用</a>
+</script>
+<script type="text/html" id="msg_op">
+  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+    <!--  表单处理-->
+	  <form class="layui-form" hidden="true" enctype="multipart/form-data" id="add_essay" method="post">
+	  <div class="layui-form-item">
+	    <label class="layui-form-label">文章标题</label>
+	    <div class="layui-input-block">
+	      <input type="text" id="essay_title" name="essay_title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+	    </div>
+	  </div>
+	  <div class="layui-form-item">
+	    <label class="layui-form-label">文章来源</label>
+	    <div class="layui-input-block">
+	      <input type="text" id="essay_from" name="essay_from" required  lay-verify="required" placeholder="原创/来源链接" autocomplete="off" class="layui-input">
+	    </div>
+	  </div>
+	  <div class="layui-form-item">
+	    <label class="layui-form-label">文章类型</label>
+	    <div class="layui-input-block">
+	      <select name="essay_type" id="essay_type" lay-verify="required">
+	        <option value=""></option>
+	        <option value="0">科技榜</option>
+	        <option value="1">爱国榜</option>
+	        <option value="2">学习榜</option>
+	        <option value="3">敬业榜</option>
+	        <option value="4">光荣榜</option>
+	        <option value="5">富强榜</option>
+	      </select>
+	    </div>
+	  </div>
+	  <div class="layui-form-item">
+	    <label class="layui-form-label">上传图片</label>
+	    <div class="layui-input-block">
+	      <input type="file" id="essay_file" name="essay_file" autocomplete="off" class="layui-btn">
+	    </div>
+	  </div>
+	  <div class="layui-form-item layui-form-text">
+	    <label class="layui-form-label">文章内容</label>
+	    <div class="layui-input-block">
+	      <textarea id="essay_content" name="essay_content" placeholder="请输入内容" class="layui-textarea" rows="25"></textarea>
+	    </div>
+	  </div>
+	  <div class="layui-form-item">
+	    
+	  </div>
+	</form>
+	<div class="layui-input-block" hidden="true" id="post_essay">
+	      <button class="layui-btn" lay-filter="formDemo" onclick="postEssay()">立即发布</button>
+	      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+	    </div>
+    </div>
+  </div>
+  <div class="layui-footer"  style="background-color: #d42b24">
+    ©Super Idol 2019-2022 版权归Charles所有
+  </div>
+</div>
+<script>
+//JavaScript代码区域
+layui.use('element', function(){
+  var element = layui.element;
+});
+</script>
+</body>
+</html>

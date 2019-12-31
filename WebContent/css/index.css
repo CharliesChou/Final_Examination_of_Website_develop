@@ -1,0 +1,127 @@
+  		.header-ui{
+	  	background-color:#d42b24
+	  	}
+	  	body {
+            padding-bottom: 50px;
+            background-color: #E0FFFF;
+        }
+        .footer {
+            position: fixed;
+            left: 0px;
+            bottom: 0px;
+            width: 100%;
+            height: 50px;
+            background-color:#d42b24;
+            z-index: 9999;
+        }
+        #copyr{
+       		margin: 0 auto;
+       		margin-top:2px;
+        }
+        #msg
+        {
+        margin:0 auto;
+       	margin-bottom:8px;
+        }
+        .imgs-center
+        {
+       	 margin:0px auto;
+        }
+        .banner
+        {
+        margin:0 auto;
+        width: 100%;
+        }
+        .menu
+        {
+	        height:80px;
+	        width:100%;
+	        background-color: #d42b24;
+        }
+        .menu-potion
+        {
+        	position:relative;
+        	margin-top:10px;
+        	margin-left: 35%;
+        }
+        .right
+        {
+        background-color:#B22222;
+        height: 900px;
+        width: 25%;
+        float: right;
+        margin-right:10%;
+        margin-top: 30px;
+        margin-bottom: 80px;
+        }
+        .right_top
+        {
+        height: 30%;
+        width: 96%;
+        margin-top:20px;
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-bottom: 15px;
+        background-color:#F4A460;
+        }
+        .right_mid
+        {
+        height: 30%;
+        width: 96%;
+        margin-top:20px;
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-bottom: 30px;
+        background-color:yellow;
+        }
+        .right_bot
+        {
+        height: 30%;
+        width: 96%;
+        margin-top:20px;
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-bottom: 15px;
+        background-color:#F4A460;
+        }
+        .left
+        {
+        background-color:#B22222;
+        height: 900px;
+        width: 30%;
+        float: left;
+        margin-left:10%;
+        margin-top: 30px;
+        margin-bottom: 80px;
+        }
+        .left_list_item
+        {
+        background-color:#F4A460;
+        height:10%;
+        width: 98%;
+        margin:1% 1% 1% 1%;
+        }
+        .advertise_right
+        {
+        float: left;
+        margin-left:2%;
+        margin-top:400px;
+        width:10%;
+        height: 150px;
+        background-color: yellow; 
+        background-image: linear-gradient(to right, #FFFFFF , yellow, #FFFFFF);
+        box-shadow: 15px 5px 50px #FFFFFF;
+        border-radius: 16px;
+        }
+        .advertise_left
+        {
+        float: right;
+        margin-left:2%;
+        margin-top:400px;
+        width:10%;
+        height: 150px;
+        background-color: yellow; 
+        background-image: linear-gradient(to right, #FFFFFF , yellow, #FFFFFF);
+        box-shadow: 15px 5px 50px #FFFFFF;
+        border-radius: 16px;
+        }

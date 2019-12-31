@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.charles.idol.mapper.NoticeMapper">
+	<insert id="postNotice" parameterType="com.charles.idol.pojo.Notice">
+		insert into notice values(#{sender},#{content},#{sendtime},#{noticeid})
+	</insert>
+	<delete id="delNoticeById" parameterType="HashMap">
+		delete from notice where noticeid=#{noticeid}
+	</delete>
+	<select id="getAllNotice" resultType="com.charles.idol.pojo.Notice" parameterType="HashMap">
+		select * from notice LIMIT #{pageNo},#{pageSize}
+	</select>
+	<update id="updateNoticeById" parameterType="HashMap">
+		update notice set content=#{content} where noticeid=#{noticeid}
+	</update>
+	</mapper>

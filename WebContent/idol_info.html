@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Super Idol</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="./layui/css/layui.css"  media="all">
+  <link rel="stylesheet" href="./layui/css/modules/layer/default/layer.css"  media="all">
+  <link rel="stylesheet" href="./css/idol_info.css"  media="all">
+  <script type="text/javascript" src="./js/jquery-3.3.1.js"></script>
+  <script src="js/jquery-3.0.0.min.js"></script>
+  <script src="./layui/lay/modules/layer.js" charset="utf-8"></script>
+  <script src="./layui/layui.js" charset="utf-8"></script>
+  <script src="./js/vue.min.js"></script>
+  <script src="./js/axios.min.js"></script>
+  <script src="./js/index.js" charset="utf-8"></script>
+  <script src="./js/logout.js" charset="utf-8"></script>
+  <script src="./js/idol_info.js" charset="utf-8"></script>
+</head>
+<body onload="getQueryVariable()">
+<ul class="layui-nav header-ui">
+  <li class="layui-nav-item" id="admin_access">
+    <a href="admin.html">控制台</a>
+  </li>
+  <li class="layui-nav-item" id="personal-manage">
+    <a href="uinfo.html">个人中心</a>
+  </li>
+  <li class="layui-nav-item" id="login-nav">
+    <a href="login.html">登录</a>
+  </li>
+  <li class="layui-nav-item">
+    <a href="register.html">注册</a>
+  </li>
+  <li class="layui-nav-item" lay-unselect="">
+    <a href="javascript:;"><img src="./imgs/default.jpg" class="layui-nav-img" id="user_profile"><span id="user_name"></span></a>
+    <dl class="layui-nav-child" id="user-option-child">
+    </dl>
+  </li>
+   <li class="layui-nav-item">
+    <a href="">更多</a>
+     <dl class="layui-nav-child">
+      <dd><a href="about.html">关于</a></dd>
+      <dd><a href="javascript:;">服务</a></dd>
+    </dl>
+  </li>
+</ul>
+<div class="banner">
+	<img src="./imgs/banner.jpg" width="100%">
+</div>
+<div class="menu">
+	<div class="menu-potion">
+		<span class="layui-breadcrumb" lay-separator="|" style="display: block;">
+		<br/>
+		  <a href="#" style="font-size: 20px;font-weight: bold">您的位置：-></a>
+		  <a href="#" style="font-size: 20px;font-weight: bold"><span id="user_location"></span></a>
+		  <a href="index.html" style="font-size: 20px;font-weight: bold">返回主页</a>
+		</span>
+	</div>
+</div>
+
+<div class="all_chaos">
+<div class="advertise_right">
+承接公益广告位1
+</div>
+<div class="advertise_left">
+承接公益广告位2
+</div>
+<div id="app">
+	<div class="right">
+		<div class="right_top" style="overflow: hidden;">
+		<p align="center" style="color: red;font-size: 22px;font-weight: bold;font-style: oblique;">最新动态</p>
+		<ol v-for="essay in essays">
+			<li><p align="center" style="font-size:18px;font-style: italic;">【--{{essay.type}}--】更新了一篇【{{essay.from}}】文章，快去查看吧！</p></li><hr/>
+		</ol>
+		</div>
+		<div class="right_mid">
+			<div class="layui-carousel imgs-center" id="test1">
+			  <div carousel-item>
+			     <div style="text-align :center"><div style="margin: 0px auto"><img src="./imgs/cq.jpg"></div></div>
+			    <div style="text-align :center"><div style="margin: 0px auto"><img src="./imgs/cq1.jpg"></div></div>
+			    <div style="text-align :center"><div style="margin: 0px auto"><img src="./imgs/cq3.jpg"></div></div>
+			    <div style="text-align :center"><div style="margin: 0px auto"><img src="./imgs/cq4.jpg"></div></div>
+			    <div style="text-align :center"><div style="margin: 0px auto"><img src="./imgs/cq5.jpg"></div></div>
+			    <div style="text-align :center"><div style="margin: 0px auto"><img src="./imgs/cq6.jpg"></div></div>
+			  </div>
+		   </div>
+		</div>
+		<div class="right_bot">
+			<p align="center" style="color: red;font-size: 22px;font-weight: bold;font-style: oblique;">【*****公告****】</p>
+			<div style="width: 90%;height:30px;margin: 10px 10px 10px 10px;" v-for="notice in notices">
+			<span style=""><p align="center">{{notice.content}}</p></span><hr/>
+		</div>
+		</div>
+	</div>
+</div>
+<div class="left">
+	<div class="left_title_essay">
+		<span><p align="center" style="color: red;font-size: 20px;font-style: 楷体;"  id="title_essay"></p></span>
+	</div>
+	<hr class="layui-bg-orange">
+	<span style="margin-left: 20px;display: block;"><p style="font-size: 15px;color:#B22222" id="source_essay">来源</p></span>
+	<span style="margin-left: 30px;display: block;"><p style="font-size: 15px;color: #B22222" id="time_essay">时间</p></span>
+	<hr class="layui-bg-orange">
+	<div class="left_content_essay">
+		<span><p  id="content_essay" style="color:#B22222;font-size: 20px;font-style: 楷体;text-indent: 2em"></p></span>
+		<div class="left_img_essay"><img alt="" src="" id="essay_img" width="100%" height="100%"></div>
+	</div>
+	<span style="display: block;float: right;margin-right:40px"><p style="font-size: 15px;color:#B22222" id="editor_essay">来源</p></span>
+	<hr class="layui-bg-orange">
+	
+	<div class="msgBoard">
+	<!-- 弹幕，开源 -->
+		<div class="barrager">
+		</div>
+		
+		<!-- 结束，弹幕，开源 -->
+	</div>
+	<div class="addBarrager clearfix" style="background-color: #F4A460">
+	  	 	<input type="text" maxlength="10" autocomplete="off" class="fl barVal" placeholder="描述您的看法，限10个字">
+		    <button class="submit fr" style="color: white;background-color: red">发布</button>
+		</div>
+</div>
+</div>
+<div style="margin-left: 41%;margin-right: 30%;width: 40%;">
+ 		<span class="layui-breadcrumb" lay-separator="|" style="display: block;">
+ 		  <a href="" style="font-weight: bold"></a>
+		  <a href="https://www.runoob.com/" style="font-size:18px; font-weight:bold">新手建站</a>
+		  <a href="https://spring.io/" style="font-size:18px;font-weight: bold">技术支持</a>
+		  <a href="" style="font-size:18px;font-weight: bold">广告服务</a>
+		  <a href="" style="font-size:18px;font-weight: bold">交流合作</a>
+		  <a href="" style="font-size:18px;font-weight: bold"></a>
+		</span>
+</div>
+ <div class="footer">
+ 	<div id="copyr">
+ 		<p align="center">©Super Idol 2019-2022 版权归Charles所有</p>
+ 	</div>
+ 	<div id="msg">
+ 		 <p align="center">备案号:渝ICP备10011001号-1 </p>
+ 	</div>
+ </div>
+<script src="./layui/layui.js" charset="utf-8"></script>
+<script type="text/javascript">
+   
+</script>
+</body>
+</html>

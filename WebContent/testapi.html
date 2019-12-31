@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<!-- com.charles.idol.handler.TestApi -->
+<script type="text/javascript">
+var xmlhttp=new XMLHttpRequest();
+xmlhttp.onreadystatechange=function(){
+	 if (xmlhttp.readyState==4 && xmlhttp.status==200)
+	    {
+		 var data=JSON.parse(xmlhttp.responseText);
+		 alert(data[0].name);
+		 alert(data[1].name);
+	    }
+}
+xmlhttp.open("post","api/v1/testapi?data=666",true);
+xmlhttp.send();
+</script>
+</body>
+</html>

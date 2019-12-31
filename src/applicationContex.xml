@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!-- 配置数据库配置文件的位置db.properties -->
+	<bean id="DBConf" class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer">
+		<property name="locations">
+			<array>
+				<value>classpath:db.properties</value>
+			</array>
+		</property>
+	</bean>
+	
+		<!-- 配置数据源 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="${driver}"></property>
+		<property name="url" value="${url}"></property>
+		<property name="username" value="${username}"></property>
+		<property name="password" value="${password}"></property>
+		<property name="maxActive" value="${maxActive}"></property>
+		<property name="maxIdle" value="${maxActive}"></property>
+	</bean>
+	
+	<!-- 在spring里创建mybatis核心类SqlSessionFactory -->
+	<!-- 相当于整合了mybatis的conf.xml -->
+	<bean id="SqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="mapperLocations" value="classpath:com/charles/idol/mapper/*.xml"></property>
+	</bean>
+	
+	<!-- 配置mapper -->
+	<!-- 产生mapper约定：批量产生的mapper对象的id值就是接口名 -->
+	<bean id="mapper" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="sqlSessionFactoryBeanName" value="SqlSessionFactory"></property>
+		<property name="basePackage" value="com.charles.idol.mapper"></property>
+	</bean>
+	<bean id="userService" class="com.charles.idol.service.impl.UserServiceImpl">
+		<property name="userMapper" ref="userMapper"></property>
+	</bean>
+	<bean id="essayService" class="com.charles.idol.service.impl.EssayServiceImpl">
+		<property name="essayMapper" ref="essayMapper"></property>
+	</bean>
+	<bean id="noticeService" class="com.charles.idol.service.impl.NoticeServiceImpl">
+		<property name="noticeMapper" ref="noticeMapper"></property>
+	</bean>
+	<bean id="msgBoardService" class="com.charles.idol.service.impl.MsgBoardServiceImpl">
+		<property name="msgBoardMapper" ref="msgBoardMapper"></property>
+	</bean>
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+			<property name="defaultEncoding" value="UTF-8"></property>
+			<!-- 上传单个文件的最大值，单位Byte;如果-1，表示无限制 -->
+			<property name="maxUploadSize"  value="-1"></property>
+	</bean>
+</beans>

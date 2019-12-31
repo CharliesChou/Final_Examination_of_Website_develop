@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.charles.idol.mapper.UserMapper">
+		<insert id="register" parameterType="com.charles.idol.pojo.User">
+			insert into user values(#{username},#{password},#{profile},#{email},#{birth},#{place},#{power},#{regdate})
+		</insert>
+		<select id="login" parameterType="com.charles.idol.pojo.User" resultType="com.charles.idol.pojo.User">
+			SELECT * FROM user WHERE username=#{username} and password=#{password}
+		</select>
+		<select id="getUserList" resultType="com.charles.idol.pojo.User" parameterType="HashMap">
+			select * from user LIMIT #{pageNo},#{pageSize}
+		</select>
+		<update id="updatePower" parameterType="HashMap">
+			update user set power =#{power} where username=#{username}
+		</update>
+		<select id="searchUser" resultType="com.charles.idol.pojo.User" parameterType="HashMap">
+			select * from user where username like #{username} or place like #{place} or email like #{email} LIMIT #{pageNo},#{pageSize}
+		</select>
+		<update id="updatePassoword" parameterType="HashMap">
+			update user set password=#{password} where username=#{username}
+		</update>
+		<update id="userProfileUpdate" parameterType="HashMap">
+			update user set profile =#{profile} where username=#{username}
+		</update>
+		<update id="updateUserInfoHandler" parameterType="HashMap">
+			update user set email=#{email},birth=#{birth},place=#{place} where username=#{username}
+		</update>
+	</mapper>

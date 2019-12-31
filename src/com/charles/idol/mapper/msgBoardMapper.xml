@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.charles.idol.mapper.MsgBoardMapper">
+		<insert id="pushMsgBoard" parameterType="com.charles.idol.pojo.MsgBoard">
+			insert into msgboard values(#{msgid},#{essayid},#{sender},#{sendtime},#{content})
+		</insert>
+		<select id="getAllMsg" parameterType="HashMap" resultType="com.charles.idol.pojo.MsgBoard">
+			select * from msgboard LIMIT #{pageNo},#{pageSize}
+		</select>
+		<delete id="delMsgById" parameterType="String">
+			delete from msgboard where msgid=#{msgid}
+		</delete>
+		<select id="getAllMsgByEssayId" parameterType="HashMap" resultType="com.charles.idol.pojo.MsgBoard">
+			select * from msgboard where essayid=#{essayid} LIMIT #{pageNo},#{pageSize}
+		</select>
+	</mapper>
